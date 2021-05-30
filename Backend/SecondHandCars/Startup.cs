@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using SecondHandCars.Models;
+using SecondHandCars.Services;
 
 namespace SecondHandCars
 {
@@ -33,6 +34,8 @@ namespace SecondHandCars
 
             services.AddSingleton<IDatabaseSettings>(sp =>
             sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
+
+            services.AddSingleton<IWarehouseService, WarehouseService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

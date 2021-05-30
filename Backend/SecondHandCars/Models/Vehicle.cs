@@ -7,7 +7,7 @@ namespace SecondHandCars.Models
     public class Vehicle
     {
         [BsonId]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [BsonElement("make")]
         public string Make { get; set; }
