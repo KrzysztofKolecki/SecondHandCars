@@ -18,6 +18,7 @@ export interface Vehicle {
     price:     number;
     licensed:  boolean;
     dateAdded: Date;
+    warehouseId: string;
 }
 
 export interface Location {

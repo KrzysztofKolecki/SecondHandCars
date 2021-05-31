@@ -1,22 +1,60 @@
 <div class="container">
-    <table class="vehicle-table">
-      <tr>
-        <th class="align-left">Make</th>
-        <th class="align-left">Model</th>
-        <th>Year</th>
-        <th>Price</th>
-        <th>Licensed</th>
-        <th>Date Added</th>
-      </tr>
-      <tr class="vehicle" *ngFor="let vehicle of getCars()">
-        <td class="align-left"> {{ vehicle.make }}</td>
-        <td class="align-left"> {{ vehicle.model }}</td>
-        <td> {{ vehicle.yearModel }}</td>
-        <td class="align-right"> {{ vehicle.price.toFixed(2) }}</td>
-        <td> {{ vehicle.licensed ? 'Yes' : 'No' }}</td>
-        <td> {{ vehicle.dateAdded.toString().slice(0, 10) }}</td>
-      </tr>
-    </table>
+  <div class="shopping-cart">
+    
+    <div class="shopping-cart-title">SHOPPING CART:</div>
+    <div class="shopping-cart-list">
+      <div *ngIf="shoppingCartCars.length === 0" class="empty-shopping-cart">Shopping cart is empty.</div>
+      <div class="shopping-cart-header" *ngIf="shoppingCartCars.length > 0">
+        <div class="car-name-title car-name-column">Car</div>
+        <div class="car-price-title car-price-column align-center">Price</div>
+        <div class="delete-from-cart-title delete-from-cart-column align-center">Remove</div>
+      </div>
+      <hr class="shopping-cart-header-line" *ngIf="shoppingCartCars.length > 0">
+      <div class="car-in-cart" *ngFor="let car of shoppingCartCars">
+        <div class="car-name car-name-column"> {{ car.make + ' ' + car.model + ' (' + car.yearModel + ')' }}</div>
+        <div class="car-price car-price-column align-right"> {{ car.price }}</div>
+        <div class="delete-from-cart delete-from-cart-column align-center">
+          <button class="delete-from-cart-button" (click)="deleteCarFromShoppingCart(car.warehouseId ,car)">X</button>
+        </div>
+      </div>
+    </div>
+    <div class="shopping-cart-footer" *ngIf="shoppingCartCars.length > 0">
+      <div class="total" *ngIf="shoppingCartCars.length > 0">Total: {{ getTotalAmount() }}</div>
+    </div>
+  </div>
+
+  <table class="vehicle-table">
+    <tr>
+      <th class="align-left">Make</th>
+      <th class="align-left">Model</th>
+      <th>Year</th>
+      <th>Price</th>
+      <th>Licensed</th>
+      <th>Date Added</th>
+      <th>Add to cart</th>
+    </tr>
+    <tr class="vehicle" *ngFor="let vehicle of getCars()">
+      <td class="align-left" (click)="onVehicleClick(vehicle.warehouseId, vehicle.id)"> {{ vehicle.make }}</td>
+      <td class="align-left" (click)="onVehicleClick(vehicle.warehouseId, vehicle.id)"> {{ vehicle.model }}</td>
+      <td (click)="onVehicleClick(vehicle.warehouseId, vehicle.id)"> {{ vehicle.yearModel }}</td>
+      <td class="align-right" (click)="onVehicleClick(vehicle.warehouseId, vehicle.id)"> {{ vehicle.price.toFixed(2) }}</td>
+      <td (click)="onVehicleClick(vehicle.warehouseId, vehicle.id)"> {{ vehicle.licensed ? 'Yes' : 'No' }}</td>
+      <td (click)="onVehicleClick(vehicle.warehouseId, vehicle.id)"> {{ vehicle.dateAdded.toString().slice(0, 10) }}</td>
+      <td> <button class="add-to-cart-button" (click)="addCarToShoppingCart(vehicle.warehouseId, vehicle.id)">Add</button></td>
+    </tr>
+  </table>
+</div>
+
+<div id="car-details-modal" class="modal" [style.display]="displayModal ? 'block' : 'none'">
+
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <div class="car-details">
+      <div id="car-details-warehouse">Warehouse: {{ carDetailsWarehouse }} </div>
+      <div id="car-details-location">Location: {{ carDetailsLocation }} </div>
+    </div>
+  </div>
+
 </div>
 
 <router-outlet></router-outlet>
