@@ -17,7 +17,7 @@ export interface Vehicle {
     yearModel: number;
     price:     number;
     licensed:  boolean;
-    dateAdded: string;
+    dateAdded: Date;
 }
 
 export interface Location {

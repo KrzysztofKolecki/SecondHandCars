@@ -1,9 +1,22 @@
 <div class="container">
-  <div class="car-list">
-    <div class="vehicle" *ngFor="let car of getCars()">
-      {{ car.model }}
-    </div>
-  </div>
+    <table class="vehicle-table">
+      <tr>
+        <th class="align-left">Make</th>
+        <th class="align-left">Model</th>
+        <th>Year</th>
+        <th>Price</th>
+        <th>Licensed</th>
+        <th>Date Added</th>
+      </tr>
+      <tr class="vehicle" *ngFor="let vehicle of getCars()">
+        <td class="align-left"> {{ vehicle.make }}</td>
+        <td class="align-left"> {{ vehicle.model }}</td>
+        <td> {{ vehicle.yearModel }}</td>
+        <td class="align-right"> {{ vehicle.price.toFixed(2) }}</td>
+        <td> {{ vehicle.licensed ? 'Yes' : 'No' }}</td>
+        <td> {{ vehicle.dateAdded.toString().slice(0, 10) }}</td>
+      </tr>
+    </table>
 </div>
 
 <router-outlet></router-outlet>

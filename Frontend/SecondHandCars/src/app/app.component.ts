@@ -28,6 +28,8 @@ export class AppComponent implements OnInit {
 
     this.warehouses.forEach(warehouse => warehouse.cars.vehicles.forEach(vehicle => vehicles.push(vehicle)));
 
+    vehicles.sort((a, b) => a.dateAdded > b.dateAdded ? -1 : 1)
+
     return vehicles;
   }
 
