@@ -29,6 +29,7 @@ namespace SecondHandCars
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.Configure<DatabaseSettings>(
             Configuration.GetSection(nameof(DatabaseSettings)));
 
@@ -53,6 +54,10 @@ namespace SecondHandCars
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SecondHandCars v1"));
             }
+
+            app.UseCors(
+                options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
+            );
 
             app.UseHttpsRedirection();
 
