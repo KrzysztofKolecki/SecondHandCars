@@ -1,35 +1,37 @@
-import { TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserTestingModule } from '@angular/platform-browser/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
+
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        BrowserTestingModule,
+        HttpClientModule
       ],
       declarations: [
         AppComponent
       ],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'SecondHandCars'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('SecondHandCars');
+  it('should have proper shopping cart title', () => {
+    let title = fixture.nativeElement.querySelector('.shopping-cart-title');
+    expect(title.textContent).toContain('SHOPPING CART');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('SecondHandCars app is running!');
-  });
 });
